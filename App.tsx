@@ -1,21 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { AppearanceProvider, useColorScheme } from "react-native-appearance";
+import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "@shopify/restyle";
+// Components
+import Navigation from "./components/Navigation";
+// Theme
+import { theme, darkTheme } from "./themes/Theme";
 
 export default function App() {
+  const colorScheme = useColorScheme();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppearanceProvider>
+      <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
+      <ThemeProvider theme={colorScheme === "light" ? theme : darkTheme}>
+        <Navigation theme={colorScheme} />
+      </ThemeProvider>
+    </AppearanceProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
